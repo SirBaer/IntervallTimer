@@ -24,36 +24,23 @@ import java.util.Locale;
 import static android.support.v4.app.ActivityCompat.requestPermissions;
 
 public class IntervallTimerService extends Service {
-    public static final String ANNOUNCE = "ANNOUNCE";
+
     public static final String REPITITIONS = "REPITITIONS";
     public static final String PAUSE_TRACK = "PAUSE_TRACK";
 
     public static final String CURRENT_STATUS = "CURRENT_STATUS";
     public static final String STATUS_MESSAGE = "STATUS_MESSAGE";
 
-    private TextToSpeech textToSpeech;
 
-    private boolean ttsInitialized = false;
 
     @Override
     public void onCreate() {
         super.onCreate();
         System.out.println("onCreate()");
-        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                if(status != TextToSpeech.ERROR) {
-                    textToSpeech.setLanguage(Locale.GERMANY);
-                    ttsInitialized = true;
-                }
-            }});
     }
 
     @Override
     public void onDestroy() {
-        textToSpeech.stop();
-        textToSpeech.shutdown();
-        ttsInitialized = false;
     }
 
     @Nullable
@@ -74,14 +61,6 @@ public class IntervallTimerService extends Service {
         thread.start();
 
         return START_NOT_STICKY;
-    }
-
-    private void announce(String announcement) {
-        final int speak = textToSpeech.speak(announcement, TextToSpeech.QUEUE_ADD, null, null);
-        if(ttsInitialized) {
-            if(null != textToSpeech) {
-            }
-        }
     }
 
     private List<ITask> getWorkoutList(int aNumberOfSets) {

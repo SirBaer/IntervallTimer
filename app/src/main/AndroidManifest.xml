@@ -35,7 +35,7 @@
          MediaBrowser (for browsing) and MediaController (for playback control)
         -->
         <service
-            android:name=".MusicService"
+            android:name=".AudioService"
             android:enabled="true"
             android:exported="true"></service>
     </application>
